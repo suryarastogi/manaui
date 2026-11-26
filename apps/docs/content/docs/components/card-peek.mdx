@@ -1,0 +1,116 @@
+---
+title: Card Peek
+description: A card popup that opens on the rules text and counts down to the card image with a visible ring.
+---
+
+<CardPeekDemo />
+
+Try each one: a normal card, an adventure (two costs), a double-faced card, and a card with no image.
+
+## Installation
+
+```npm
+npx shadcn@latest add https://suryarastogi.github.io/manaui/r/card-peek.json
+```
+
+This also installs [Mana Cost](/docs/components/mana-cost), [Card Badges](/docs/components/card-badges)
+and your project's shadcn `dialog`.
+
+## Usage
+
+`useCardPeek` gives you one dialog to share across a whole list.
+
+```tsx
+import { useCardPeek } from '@/components/manaui/card-peek';
+
+function Deck({ cards }: { cards: Card[] }) {
+  const peek = useCardPeek();
+  return (
+    <>
+      {cards.map((card) => (
+        <button key={card.name} onClick={() => peek.open(card)}>
+          {card.name}
+        </button>
+      ))}
+      {peek.dialog}
+    </>
+  );
+}
+```
+
+## How it reads
+
+The popup is the size and shape of a card from the first frame, so nothing jumps.
+
+1. **Text.** It opens on the card's name, cost, type line and rules text. The image starts
+   downloading behind it.
+2. **Loading.** A ring in the corner spins while the image downloads.
+3. **Countdown.** When the image is ready the ring fills over 1.6 seconds. That is the warning that
+   the content is about to change.
+4. **Image.** The image fades in over the text. Tapping it closes the popup. A "Text" button goes
+   back.
+
+Touching the text during the countdown holds it there; the ring then waits as a "Show card image"
+button. Tapping the ring at any point after loading shows the image immediately. If there is no
+image, or it fails to load, the popup stays on the text.
+
+The ring's animation is cosmetic. The switch is driven by a timer, so readers with reduced motion
+still get the same wait.
+
+## Controlled dialog
+
+Hold the open card in your own state when you need to, for example to sync it with the URL.
+
+```tsx
+import { CardPeekDialog } from '@/components/manaui/card-peek';
+
+const [card, setCard] = React.useState<Card | null>(null);
+
+<CardPeekDialog card={card} onClose={() => setCard(null)} />;
+```
+
+## Without the dialog
+
+`CardPeek` is the card-shaped panel on its own, for a drawer, a popover or a detail page.
+
+```tsx
+import { CardPeek } from '@/components/manaui/card-peek';
+
+<CardPeek card={card} className="w-72" />;
+```
+
+## API reference
+
+### useCardPeek
+
+Returns:
+
+<TypeTable
+  type={{
+    open: { type: '(card: Card) => void', description: 'Open the dialog on a card.' },
+    close: { type: '() => void', description: 'Close the dialog.' },
+    dialog: { type: 'ReactNode', description: 'Render this once, anywhere in the tree.' },
+  }}
+/>
+
+### CardPeekDialog
+
+<TypeTable
+  type={{
+    card: { type: 'Card | null', description: 'The card to show. null means closed.', required: true },
+    onClose: { type: '() => void', description: 'Called when the dialog should close.', required: true },
+  }}
+/>
+
+### CardPeek
+
+<TypeTable
+  type={{
+    card: { type: 'Card', description: 'A Scryfall card object.', required: true },
+    onClose: { type: '() => void', description: 'Called when the reader taps the revealed image.' },
+    className: { type: 'string', description: 'Override the default card-sized width.' },
+  }}
+/>
+
+`CardPeek` sets `data-phase` on its root to `text`, `loading`, `countdown`, `held` or `image`, which
+is handy for tests and styling.

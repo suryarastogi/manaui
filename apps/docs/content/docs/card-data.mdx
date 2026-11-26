@@ -1,0 +1,106 @@
+---
+title: Card data
+description: manaui components take Scryfall card objects. Here is what they read and how to supply it.
+---
+
+Every component takes a `card` prop shaped like a [Scryfall card object](https://scryfall.com/docs/api/cards).
+manaui does not fetch cards for you: you pass what you have.
+
+## The shape
+
+The `Card` type from `@manaui/core` is a structural subset of Scryfall's. Only `name` is required, so
+a partial projection from your own backend works as long as the field names match.
+
+```ts
+import type { Card } from '@manaui/core';
+
+const card: Card = {
+  name: 'Sol Ring',
+  mana_cost: '{1}',
+  type_line: 'Artifact',
+  oracle_text: '{T}: Add {C}{C}.',
+  rarity: 'uncommon',
+  produced_mana: ['C'],
+  edhrec_rank: 1,
+  image_uris: {
+    normal: 'https://cards.scryfall.io/normal/front/…jpg',
+    art_crop: 'https://cards.scryfall.io/art_crop/front/…jpg',
+  },
+};
+```
+
+<TypeTable
+  type={{
+    name: { type: 'string', description: 'Card name.', required: true },
+    mana_cost: { type: 'string | null', description: 'Scryfall cost string, e.g. "{2}{W}{U}".' },
+    type_line: { type: 'string | null', description: 'Full type line.' },
+    oracle_text: { type: 'string | null', description: 'Rules text.' },
+    rarity: { type: 'string | null', description: 'common, uncommon, rare, mythic, special or bonus.' },
+    color_identity: { type: 'string[] | null', description: 'WUBRG letters.' },
+    keywords: { type: 'string[] | null', description: 'Keyword abilities.' },
+    produced_mana: { type: 'string[] | null', description: 'Colours of mana the card can make.' },
+    edhrec_rank: { type: 'number | null', description: 'EDHREC popularity rank.' },
+    image_uris: { type: 'CardImageUris | null', description: 'small, normal, large, png, art_crop, border_crop.' },
+    card_faces: { type: 'CardFace[] | null', description: 'Faces of a multi-faced card.' },
+  }}
+/>
+
+## From the Scryfall API
+
+A card fetched from Scryfall can be passed straight in.
+
+```tsx
+const res = await fetch(
+  `https://api.scryfall.com/cards/named?exact=${encodeURIComponent('Sol Ring')}`,
+);
+const card = await res.json();
+
+<CardName card={card} />;
+```
+
+Scryfall asks API clients to cache results and stay under ten requests a second. For lists, use
+[`/cards/collection`](https://scryfall.com/docs/api/cards/collection) to fetch up to 75 cards in one
+request, or their [bulk data](https://scryfall.com/docs/api/bulk-data).
+
+## From your own backend
+
+If your API returns a different shape, map it once. For example, a backend that sends a single
+`image_uri`:
+
+```ts
+import { type Card, artCropUri } from '@manaui/core';
+
+function toCard(detail: MyCardDetail): Card {
+  return {
+    name: detail.name,
+    mana_cost: detail.mana_cost,
+    type_line: detail.type_line,
+    oracle_text: detail.oracle_text,
+    rarity: detail.rarity,
+    keywords: detail.keywords,
+    produced_mana: detail.produced_mana,
+    edhrec_rank: detail.edhrec_rank,
+    image_uris: detail.image_uri
+      ? { normal: detail.image_uri, art_crop: artCropUri(detail.image_uri) ?? undefined }
+      : null,
+  };
+}
+```
+
+You can also leave `art_crop` out: components derive it from any other Scryfall image URL.
+
+## Multi-faced cards
+
+Transforming and modal double-faced cards have no top-level `image_uris`, `mana_cost` or
+`oracle_text`; those live on `card_faces`. The components read cards through accessors in
+`@manaui/core` that handle this, and you can use them too:
+
+```ts
+import { cardArt, cardImage, cardManaCost, cardOracleText, cardTypeLine } from '@manaui/core';
+
+cardImage(valki);      // front face image
+cardManaCost(valki);   // "{1}{B} // {5}{B}{R}"
+cardTypeLine(valki);   // "Legendary Creature — God // Legendary Planeswalker — Tibalt"
+cardOracleText(valki); // each face's text under its name
+cardArt(valki);        // art crop, derived if the card doesn't carry one
+```

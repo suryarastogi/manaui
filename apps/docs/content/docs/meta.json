@@ -1,0 +1,13 @@
+{
+  "title": "manaui",
+  "pages": [
+    "---Get started---",
+    "index",
+    "installation",
+    "card-data",
+    "---Components---",
+    "...components",
+    "---Reference---",
+    "core"
+  ]
+}

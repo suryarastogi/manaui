@@ -1,0 +1,92 @@
+---
+title: Installation
+description: Add manaui components to a project that uses shadcn/ui.
+---
+
+manaui components are installed with the shadcn CLI. They are copied into your project as source
+files, next to your other components.
+
+## Prerequisites
+
+- A React 19 project set up with [shadcn/ui](https://ui.shadcn.com/docs/installation) (a
+  `components.json` at the project root). Any shadcn style works, Radix or Base UI.
+- Tailwind CSS v4. The rows use container queries and a few v4-only utilities.
+
+## Add a component
+
+<Steps>
+<Step>
+
+### Run the CLI
+
+Pass the component's registry URL to `shadcn add`. This installs the component, the manaui
+components it builds on, and the npm packages they need (`@manaui/core`, `mana-font`).
+
+```npm
+npx shadcn@latest add https://suryarastogi.github.io/manaui/r/card-list.json
+```
+
+</Step>
+<Step>
+
+### Check your global CSS
+
+The CLI adds what the components need to your global stylesheet: the mana-font import and the
+lightbox scrim. If you manage CSS by hand, this is everything:
+
+```css title="app/globals.css"
+@import "mana-font/css/mana.min.css";
+
+@layer utilities {
+  [data-slot='dialog-overlay']:has(~ [data-manaui-lightbox]) {
+    background-color: rgb(0 0 0 / 0.8);
+  }
+}
+```
+
+</Step>
+<Step>
+
+### Use it
+
+```tsx
+import { CardName } from '@/components/manaui/card-hover';
+
+export function Example({ card }) {
+  return <CardName card={card} />;
+}
+```
+
+`card` is a Scryfall card object. See [Card data](/docs/card-data) for where to get one.
+
+</Step>
+</Steps>
+
+## Shorter names with a registry namespace
+
+Add manaui to the `registries` field of your `components.json` once:
+
+```json title="components.json"
+{
+  "registries": {
+    "@manaui": "https://suryarastogi.github.io/manaui/r/{name}.json"
+  }
+}
+```
+
+Then install by name:
+
+```npm
+npx shadcn@latest add @manaui/card-hover @manaui/card-peek
+```
+
+## Just the logic
+
+`@manaui/core` has no dependencies and no React. Install it alone if you only want the parsing and
+URL helpers, or if you are not using shadcn/ui.
+
+```npm
+npm install @manaui/core
+```
+
+See the [core reference](/docs/core).

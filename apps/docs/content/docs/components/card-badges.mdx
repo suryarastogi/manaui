@@ -1,0 +1,78 @@
+---
+title: Card Badges
+description: Small signals for card rows and previews, drawn from fields a Scryfall card already carries.
+---
+
+<CardBadgesDemo />
+
+## Installation
+
+```npm
+npx shadcn@latest add https://suryarastogi.github.io/manaui/r/card-badges.json
+```
+
+## Usage
+
+```tsx
+import {
+  KeywordChips,
+  ProducedManaPips,
+  RarityDot,
+  StapleChip,
+} from '@/components/manaui/card-badges';
+
+<RarityDot rarity={card.rarity} />
+<StapleChip edhrecRank={card.edhrec_rank} />
+<ProducedManaPips card={card} />
+<KeywordChips keywords={card.keywords} />
+```
+
+Each badge renders nothing when its data is missing, so you can place them unconditionally.
+
+## The badges
+
+| Badge | Shows | Renders nothing when |
+| --- | --- | --- |
+| `RarityDot` | A coloured dot: grey common, silver uncommon, gold rare, orange-red mythic. | The rarity is missing or unknown. |
+| `StapleChip` | "Staple" for an EDHREC rank of 1000 or better, "Deep cut" beyond 20000. | The rank is in between or missing. |
+| `ProducedManaPips` | The colours a land or artifact taps for, in WUBRG then colorless order. | The card makes no mana, or is not a land or artifact (unless `always`). |
+| `KeywordChips` | Up to four keyword chips, then "+N". | There are no keywords. |
+
+## API reference
+
+### RarityDot
+
+<TypeTable
+  type={{
+    rarity: { type: 'string | null | undefined', description: 'Scryfall rarity, any case.', required: true },
+    className: { type: 'string', description: 'For example size-2.5 for a larger dot.' },
+  }}
+/>
+
+### StapleChip
+
+<TypeTable
+  type={{
+    edhrecRank: { type: 'number | null | undefined', description: 'The card\'s edhrec_rank.', required: true },
+    className: { type: 'string', description: 'Extra classes.' },
+  }}
+/>
+
+### ProducedManaPips
+
+<TypeTable
+  type={{
+    card: { type: 'Card | null | undefined', description: 'Reads produced_mana and the type line.', required: true },
+    always: { type: 'boolean', description: 'Show for any card type, not only lands and artifacts.', default: 'false' },
+    className: { type: 'string', description: 'Size with a text utility.' },
+  }}
+/>
+
+### KeywordChips
+
+<TypeTable
+  type={{
+    keywords: { type: 'string[] | null | undefined', description: 'The card\'s keywords.', required: true },
+    limit: { type: 'number', description: 'Chips shown before the rest collapse into "+N".', default: '4' },
+  }}
+/>

@@ -1,0 +1,13 @@
+{
+  "//": "The Scryfall types package ships raw .ts that isn't written for verbatimModuleSyntax, so its compatibility check compiles with looser module flags.",
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["ES2022"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": ["compat"]
+}

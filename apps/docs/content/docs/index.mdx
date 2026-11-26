@@ -1,0 +1,61 @@
+---
+title: Introduction
+description: "Open-source React components for Magic: The Gathering apps: card previews, mana symbols and deck-list rows."
+---
+
+manaui is a small set of components for building Magic: The Gathering apps in React. They take
+[Scryfall](https://scryfall.com/docs/api) card objects as input, are styled with Tailwind CSS, and
+are distributed the [shadcn/ui](https://ui.shadcn.com) way: you copy the source into your project
+and own it.
+
+<CardListDemo />
+
+Tap a row above, or switch the container to Desktop and hover a card name.
+
+## What is in the box
+
+<Cards>
+  <Card title="Card Hover" href="/docs/components/card-hover">
+    Hover or tap a card name to preview it. Rules text first, then the image.
+  </Card>
+  <Card title="Card Peek" href="/docs/components/card-peek">
+    A card popup that counts down to the image with a visible ring.
+  </Card>
+  <Card title="Card Art Row" href="/docs/components/card-art-row">
+    List rows that become thumb-sized art tiles on narrow containers.
+  </Card>
+  <Card title="Card List" href="/docs/components/card-list">
+    Collapsible grouped rows wired to hover and peek.
+  </Card>
+  <Card title="Mana Cost" href="/docs/components/mana-cost">
+    Mana cost and color identity symbols.
+  </Card>
+  <Card title="Card Badges" href="/docs/components/card-badges">
+    Rarity, staple, produced-mana and keyword chips.
+  </Card>
+</Cards>
+
+The logic behind them (mana cost parsing, art-crop URLs, preview timing) lives in
+[`@manaui/core`](/docs/core), a dependency-free TypeScript package you can use on its own.
+
+## Design principles
+
+- **Text before image.** Card images are slow and card text is already in hand. Every preview opens
+  on the rules text and brings the image in afterwards, never the other way round.
+- **Never swap content under a reader.** When the image is about to replace the text, a ring fills
+  first. A touch on the text holds it.
+- **Density follows the container.** Rows switch between a compact desktop line and a phone tile
+  based on the width of the list, not the viewport, so a narrow side panel on a wide screen gets the
+  right layout.
+- **No hidden requests.** Components render what you pass them. Art only loads on layouts that show
+  it.
+
+## Fan content notice
+
+manaui is unofficial Fan Content permitted under the
+[Fan Content Policy](https://company.wizards.com/en/legal/fancontentpolicy). Not approved or endorsed
+by Wizards. Portions of the materials used are property of Wizards of the Coast. ©Wizards of the
+Coast LLC.
+
+Card data and images in these docs are provided by [Scryfall](https://scryfall.com). Mana symbols are
+rendered with [mana-font](https://mana.andrewgioia.com).

@@ -1,0 +1,27 @@
+{
+  "name": "manaui-monorepo",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build -w @manaui/core && npm run build -w docs",
+    "build:core": "npm run build -w @manaui/core",
+    "dev": "npm run dev -w docs",
+    "test": "npm test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "registry:build": "npm run registry:build -w docs",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "npm run build:core && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3",
+    "typescript": "~7.0.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

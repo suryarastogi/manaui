@@ -1,0 +1,119 @@
+---
+title: Card Hover
+description: Hover or tap a card name to preview it. The rules text shows at once; the card image replaces it after it has loaded.
+---
+
+<CardHoverDemo />
+
+## Installation
+
+```npm
+npx shadcn@latest add https://suryarastogi.github.io/manaui/r/card-hover.json
+```
+
+This also installs [Mana Cost](/docs/components/mana-cost), [Card Badges](/docs/components/card-badges)
+and your project's shadcn `dialog`.
+
+## Usage
+
+```tsx
+import { CardName } from '@/components/manaui/card-hover';
+
+<p>
+  Ramp with <CardName card={solRing} showCost /> and close with <CardName card={atraxa} />.
+</p>
+```
+
+`CardName` renders the card's name with a dotted underline. `CardHover` is the same preview around
+any trigger you give it:
+
+```tsx
+import { CardHover } from '@/components/manaui/card-hover';
+
+<CardHover card={teferi}>
+  <span className="rounded-full border px-3 py-1.5">Any element can be the trigger</span>
+</CardHover>
+```
+
+<CardHoverTriggerDemo />
+
+## Behaviour
+
+- **Mouse:** the panel opens on hover and closes on leave. Clicking pins it open.
+- **Touch and keyboard:** tapping or focusing the trigger opens the panel. A tap pins it.
+- **Text, then image:** the panel opens on a summary (type line, mana cost, rules text, keywords). The
+  image replaces it once it has loaded *and* the summary has been visible for 600 ms. Images already
+  loaded this session show immediately on re-open.
+- **Full size:** tapping the image opens it in a lightbox.
+- **Dismissal:** an outside press, any scroll, or Escape closes the panel.
+- **Placement:** the panel renders in a portal on `document.body`, so it is never clipped by a
+  scrolling table or card. It opens below the trigger and flips above when there is no room.
+- **Nothing to show:** with no card (or a card with neither text nor image), the children render
+  untouched and `CardName` drops its underline.
+
+## Resolving cards lazily
+
+For a page full of names, fetch a card only when the reader shows intent. Pass `loading` while the
+request is in flight and the panel shows a placeholder.
+
+```tsx
+function LazyCardName({ name }: { name: string }) {
+  const [armed, setArmed] = React.useState(false);
+  const { data, isPending } = useQuery({
+    queryKey: ['card', name],
+    enabled: armed,
+    staleTime: Infinity,
+    queryFn: () =>
+      fetch(`https://api.scryfall.com/cards/named?exact=${encodeURIComponent(name)}`).then((r) =>
+        r.json(),
+      ),
+  });
+
+  return (
+    <span onPointerEnter={() => setArmed(true)} onFocusCapture={() => setArmed(true)}>
+      <CardName card={data} name={name} loading={armed && isPending} />
+    </span>
+  );
+}
+```
+
+To turn bolded names in chat or markdown into previews, gate candidates with
+`isPlausibleCardName` from [`@manaui/core`](/docs/core) before fetching.
+
+## API reference
+
+### CardName
+
+<TypeTable
+  type={{
+    card: { type: 'Card | null | undefined', description: 'A Scryfall card object.', required: true },
+    name: { type: 'string', description: 'Text to show.', default: 'card.name' },
+    loading: { type: 'boolean', description: 'The card is being fetched: keep the trigger live and show a placeholder panel.', default: 'false' },
+    showCost: { type: 'boolean', description: 'Render the mana cost after the name.', default: 'false' },
+    className: { type: 'string', description: 'Classes for the name text.' },
+  }}
+/>
+
+### CardHover
+
+<TypeTable
+  type={{
+    card: { type: 'Card | null | undefined', description: 'A Scryfall card object.', required: true },
+    children: { type: 'ReactNode', description: 'The trigger. It is wrapped in a button.', required: true },
+    loading: { type: 'boolean', description: 'Show a placeholder panel until the card arrives.', default: 'false' },
+    className: { type: 'string', description: 'Classes for the wrapping element.' },
+  }}
+/>
+
+### CardZoomDialog
+
+The lightbox `CardHover` opens, exported for reuse.
+
+<TypeTable
+  type={{
+    uri: { type: 'string', description: 'Image URL.', required: true },
+    alt: { type: 'string', description: 'Accessible name for the image and dialog.', required: true },
+    open: { type: 'boolean', description: 'Whether the dialog is open.', required: true },
+    onOpenChange: { type: '(open: boolean) => void', description: 'Called when the dialog wants to open or close.', required: true },
+  }}
+/>

@@ -1,0 +1,139 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "manaui",
+  "homepage": "https://suryarastogi.github.io/manaui",
+  "items": [
+    {
+      "name": "mana-cost",
+      "type": "registry:component",
+      "title": "Mana Cost",
+      "description": "Mana cost and color identity symbols rendered with mana-font.",
+      "dependencies": [
+        "@manaui/core",
+        "mana-font"
+      ],
+      "files": [
+        {
+          "path": "app/components/manaui/mana-cost.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "css": {
+        "@import \"mana-font/css/mana.min.css\"": {}
+      }
+    },
+    {
+      "name": "card-badges",
+      "type": "registry:component",
+      "title": "Card Badges",
+      "description": "Rarity dot, EDHREC staple chip, produced-mana pips and keyword chips.",
+      "dependencies": [
+        "@manaui/core"
+      ],
+      "registryDependencies": [
+        "https://suryarastogi.github.io/manaui/r/mana-cost.json"
+      ],
+      "files": [
+        {
+          "path": "app/components/manaui/card-badges.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "card-hover",
+      "type": "registry:component",
+      "title": "Card Hover",
+      "description": "Hover or tap a card name to preview it: rules text first, then the card image once it has loaded.",
+      "dependencies": [
+        "@manaui/core"
+      ],
+      "registryDependencies": [
+        "dialog",
+        "https://suryarastogi.github.io/manaui/r/mana-cost.json",
+        "https://suryarastogi.github.io/manaui/r/card-badges.json"
+      ],
+      "files": [
+        {
+          "path": "app/components/manaui/card-hover.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "css": {
+        "@layer utilities": {
+          "[data-slot='dialog-overlay']:has(~ [data-manaui-lightbox])": {
+            "background-color": "rgb(0 0 0 / 0.8)"
+          }
+        }
+      }
+    },
+    {
+      "name": "card-peek",
+      "type": "registry:component",
+      "title": "Card Peek",
+      "description": "A card popup that opens on the rules text and counts down to the card image with a visible ring.",
+      "dependencies": [
+        "@manaui/core",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "dialog",
+        "https://suryarastogi.github.io/manaui/r/mana-cost.json",
+        "https://suryarastogi.github.io/manaui/r/card-badges.json"
+      ],
+      "files": [
+        {
+          "path": "app/components/manaui/card-peek.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "css": {
+        "@layer utilities": {
+          "[data-slot='dialog-overlay']:has(~ [data-manaui-lightbox])": {
+            "background-color": "rgb(0 0 0 / 0.8)"
+          }
+        }
+      }
+    },
+    {
+      "name": "card-art-row",
+      "type": "registry:component",
+      "title": "Card Art Row",
+      "description": "A card list row that becomes a thumb-sized tile with the card's art faded in behind the name on narrow containers.",
+      "dependencies": [
+        "@manaui/core"
+      ],
+      "registryDependencies": [
+        "https://suryarastogi.github.io/manaui/r/mana-cost.json",
+        "https://suryarastogi.github.io/manaui/r/card-badges.json",
+        "https://suryarastogi.github.io/manaui/r/card-hover.json"
+      ],
+      "files": [
+        {
+          "path": "app/components/manaui/card-art-row.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "card-list",
+      "type": "registry:component",
+      "title": "Card List",
+      "description": "Collapsible, grouped card rows with hover previews on desktop and a tap-to-peek popup on phones.",
+      "dependencies": [
+        "@manaui/core",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://suryarastogi.github.io/manaui/r/card-art-row.json",
+        "https://suryarastogi.github.io/manaui/r/card-peek.json"
+      ],
+      "files": [
+        {
+          "path": "app/components/manaui/card-list.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

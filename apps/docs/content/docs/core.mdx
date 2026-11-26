@@ -1,0 +1,113 @@
+---
+title: "@manaui/core"
+description: Dependency-free TypeScript helpers behind the components. No React required.
+---
+
+```npm
+npm install @manaui/core
+```
+
+Everything here is a pure function or a type. Use it in React, another framework, or on a server.
+
+## Cards
+
+```ts
+import {
+  type Card,
+  cardArt,
+  cardImage,
+  cardManaCost,
+  cardOracleText,
+  cardTypeLine,
+} from '@manaui/core';
+```
+
+| Export | Returns |
+| --- | --- |
+| `Card`, `CardFace`, `CardImageUris` | Types: a structural subset of Scryfall's card object. See [Card data](/docs/card-data). |
+| `cardImage(card, size?)` | Image URL at `size` (default `normal`), falling back to the front face. |
+| `cardArt(card)` | The art crop, derived from another rendition if the card doesn't carry one. |
+| `cardManaCost(card)` | Mana cost, joining faces with `//` when only the faces have one. |
+| `cardTypeLine(card)` | Type line, joined the same way. |
+| `cardOracleText(card)` | Rules text. Multi-faced cards get each face's text under its name. |
+
+All of them accept `null` or `undefined` and return `null` when there is nothing to return.
+
+## Mana
+
+```ts
+import { parseManaCost, parseManaCostFaces, sortColors } from '@manaui/core';
+
+parseManaCost('{2}{W}{B/R}');          // ['2', 'w', 'br']
+parseManaCostFaces('{2}{R} // {1}{R}'); // [['2', 'r'], ['1', 'r']]
+sortColors(['g', 'W', 'u']);           // ['W', 'U', 'G']
+```
+
+Symbols come back as [mana-font](https://mana.andrewgioia.com) class suffixes. `WUBRG` and
+`COLOR_NAMES` are exported as constants.
+
+## Images
+
+```ts
+import { artCropUri, scryfallImageUri } from '@manaui/core';
+
+artCropUri('https://cards.scryfall.io/normal/front/a/b/abc.jpg?1');
+// 'https://cards.scryfall.io/art_crop/front/a/b/abc.jpg?1'
+
+scryfallImageUri(url, 'large'); // any rendition from any other
+```
+
+Scryfall serves every rendition at a parallel path, so one URL is enough to reach the rest without an
+API call. Both return `null` for URLs that are not Scryfall card images.
+
+## Type lines
+
+```ts
+import { groupByKind, primaryKind } from '@manaui/core';
+
+primaryKind('Artifact Creature — Golem'); // 'Creature'
+primaryKind('Basic Land — Forest');       // 'Land'
+
+groupByKind(entries, (entry) => entry.card.type_line);
+// [{ key: 'Creature', label: 'Creatures', items: [...] }, …, { key: 'Land', label: 'Lands', … }]
+```
+
+A card with several types is classified by precedence: Creature, Planeswalker, Instant, Sorcery,
+Artifact, Enchantment, Battle, Land. `KIND_ORDER`, `KIND_PLURAL` and `kindRank` are exported for your
+own sorting.
+
+## Badges
+
+| Export | Returns |
+| --- | --- |
+| `stapleTier(edhrecRank)` | `'staple'` at rank 1000 or better, `'deep-cut'` beyond 20000, otherwise `null`. |
+| `rarityRank(rarity)` | Sort position, common first; unknown rarities last. |
+
+## Preview timing
+
+These are the decisions inside [Card Hover](/docs/components/card-hover) and
+[Card Peek](/docs/components/card-peek), exposed so you can build your own UI on the same rules.
+
+```ts
+import { IMAGE_DWELL_MS, PEEK_COUNTDOWN_MS, panelAnchor, peekPhase, shouldShowImage } from '@manaui/core';
+```
+
+| Export | Purpose |
+| --- | --- |
+| `peekPhase(state)` | Maps `{ hasImage, failed, loaded, held, revealed }` to `'text'`, `'loading'`, `'countdown'`, `'held'` or `'image'`. |
+| `PEEK_COUNTDOWN_MS` | How long the ring fills: 1600. |
+| `shouldShowImage(state)` | Whether a hover panel may swap from summary to image. |
+| `IMAGE_DWELL_MS` | How long the summary stays readable first: 600. |
+| `panelAnchor(rect, viewport, options?)` | Fixed-position anchor for a floating panel: below the trigger, flipped above when it won't fit, clamped to the viewport. |
+
+## Autocard
+
+```ts
+import { isPlausibleCardName } from '@manaui/core';
+
+isPlausibleCardName('Sol Ring');      // true
+isPlausibleCardName('never do this'); // false
+```
+
+A cheap gate for features that turn bolded phrases in prose or chat into card previews, so ordinary
+emphasis does not trigger a lookup.

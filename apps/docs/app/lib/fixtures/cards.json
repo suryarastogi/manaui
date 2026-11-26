@@ -1,0 +1,377 @@
+{
+  "atraxa-praetors-voice": {
+    "name": "Atraxa, Praetors' Voice",
+    "mana_cost": "{G}{W}{U}{B}",
+    "type_line": "Legendary Creature — Phyrexian Angel Horror",
+    "oracle_text": "Flying, vigilance, deathtouch, lifelink\nAt the beginning of your end step, proliferate. (Choose any number of permanents and/or players, then give each another counter of each kind already there.)",
+    "rarity": "mythic",
+    "color_identity": [
+      "B",
+      "G",
+      "U",
+      "W"
+    ],
+    "keywords": [
+      "Deathtouch",
+      "Flying",
+      "Lifelink",
+      "Vigilance",
+      "Proliferate"
+    ],
+    "edhrec_rank": 2343,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.jpg?1783930136",
+      "normal": "https://cards.scryfall.io/normal/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.jpg?1783930136",
+      "large": "https://cards.scryfall.io/large/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.jpg?1783930136",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/d/0/d0d33d52-3d28-4635-b985-51e126289259.jpg?1783930136"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/2xm/190/atraxa-praetors-voice"
+  },
+  "sol-ring": {
+    "name": "Sol Ring",
+    "mana_cost": "{1}",
+    "type_line": "Artifact",
+    "oracle_text": "{T}: Add {C}{C}.",
+    "rarity": "uncommon",
+    "color_identity": [],
+    "keywords": [],
+    "produced_mana": [
+      "C"
+    ],
+    "edhrec_rank": 1,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181",
+      "normal": "https://cards.scryfall.io/normal/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181",
+      "large": "https://cards.scryfall.io/large/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/f/c/fc817e07-c1f3-469f-9cf7-0945dea7400f.jpg?1793021181"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/trc/499/sol-ring"
+  },
+  "command-tower": {
+    "name": "Command Tower",
+    "mana_cost": "",
+    "type_line": "Land",
+    "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+    "rarity": "common",
+    "color_identity": [],
+    "keywords": [],
+    "produced_mana": [
+      "B",
+      "G",
+      "R",
+      "U",
+      "W"
+    ],
+    "edhrec_rank": 2,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/a/7/a73297d2-580c-4174-a427-265f6916d09f.jpg?1793021256",
+      "normal": "https://cards.scryfall.io/normal/front/a/7/a73297d2-580c-4174-a427-265f6916d09f.jpg?1793021256",
+      "large": "https://cards.scryfall.io/large/front/a/7/a73297d2-580c-4174-a427-265f6916d09f.jpg?1793021256",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/a/7/a73297d2-580c-4174-a427-265f6916d09f.jpg?1793021256"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/trc/521/command-tower"
+  },
+  "kitchen-finks": {
+    "name": "Kitchen Finks",
+    "mana_cost": "{1}{G/W}{G/W}",
+    "type_line": "Creature — Ouphe",
+    "oracle_text": "When this creature enters, you gain 2 life.\nPersist (When this creature dies, if it had no -1/-1 counters on it, return it to the battlefield under its owner's control with a -1/-1 counter on it.)",
+    "rarity": "uncommon",
+    "color_identity": [
+      "G",
+      "W"
+    ],
+    "keywords": [
+      "Persist"
+    ],
+    "edhrec_rank": 14886,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/a/8/a844d537-df73-422d-a154-f1c6b92d0469.jpg?1783933770",
+      "normal": "https://cards.scryfall.io/normal/front/a/8/a844d537-df73-422d-a154-f1c6b92d0469.jpg?1783933770",
+      "large": "https://cards.scryfall.io/large/front/a/8/a844d537-df73-422d-a154-f1c6b92d0469.jpg?1783933770",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/a/8/a844d537-df73-422d-a154-f1c6b92d0469.jpg?1783933770"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/uma/216/kitchen-finks"
+  },
+  "bonecrusher-giant": {
+    "name": "Bonecrusher Giant // Stomp",
+    "mana_cost": "{2}{R} // {1}{R}",
+    "type_line": "Creature — Giant // Instant — Adventure",
+    "rarity": "rare",
+    "color_identity": [
+      "R"
+    ],
+    "keywords": [],
+    "edhrec_rank": 6101,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/b/5/b5b71cd2-de35-451f-b16e-2e3936169407.jpg?1783922435",
+      "normal": "https://cards.scryfall.io/normal/front/b/5/b5b71cd2-de35-451f-b16e-2e3936169407.jpg?1783922435",
+      "large": "https://cards.scryfall.io/large/front/b/5/b5b71cd2-de35-451f-b16e-2e3936169407.jpg?1783922435",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/b/5/b5b71cd2-de35-451f-b16e-2e3936169407.jpg?1783922435"
+    },
+    "card_faces": [
+      {
+        "name": "Bonecrusher Giant",
+        "mana_cost": "{2}{R}",
+        "type_line": "Creature — Giant",
+        "oracle_text": "Whenever this creature becomes the target of a spell, this creature deals 2 damage to that spell's controller."
+      },
+      {
+        "name": "Stomp",
+        "mana_cost": "{1}{R}",
+        "type_line": "Instant — Adventure",
+        "oracle_text": "Damage can't be prevented this turn. Stomp deals 2 damage to any target."
+      }
+    ],
+    "layout": "adventure",
+    "scryfall_uri": "https://scryfall.com/card/clb/781/bonecrusher-giant-stomp"
+  },
+  "valki-god-of-lies": {
+    "name": "Valki, God of Lies // Tibalt, Cosmic Impostor",
+    "type_line": "Legendary Creature — God // Legendary Planeswalker — Tibalt",
+    "rarity": "mythic",
+    "color_identity": [
+      "B",
+      "R"
+    ],
+    "keywords": [],
+    "produced_mana": [
+      "R"
+    ],
+    "edhrec_rank": 6332,
+    "card_faces": [
+      {
+        "name": "Valki, God of Lies",
+        "mana_cost": "{1}{B}",
+        "type_line": "Legendary Creature — God",
+        "oracle_text": "When Valki enters, each opponent reveals their hand. For each opponent, exile a creature card they revealed this way until Valki leaves the battlefield.\n{X}: Choose a creature card exiled with Valki with mana value X. Valki becomes a copy of that card.",
+        "image_uris": {
+          "small": "https://cards.scryfall.io/small/front/e/a/ea7e4c65-b4c4-4795-9475-3cba71c50ea5.jpg?1783928244",
+          "normal": "https://cards.scryfall.io/normal/front/e/a/ea7e4c65-b4c4-4795-9475-3cba71c50ea5.jpg?1783928244",
+          "large": "https://cards.scryfall.io/large/front/e/a/ea7e4c65-b4c4-4795-9475-3cba71c50ea5.jpg?1783928244",
+          "art_crop": "https://cards.scryfall.io/art_crop/front/e/a/ea7e4c65-b4c4-4795-9475-3cba71c50ea5.jpg?1783928244"
+        }
+      },
+      {
+        "name": "Tibalt, Cosmic Impostor",
+        "mana_cost": "{5}{B}{R}",
+        "type_line": "Legendary Planeswalker — Tibalt",
+        "oracle_text": "As Tibalt enters, you get an emblem with \"You may play cards exiled with Tibalt, Cosmic Impostor, and you may spend mana as though it were mana of any color to cast those spells.\"\n+2: Exile the top card of each player's library.\n−3: Exile target artifact or creature.\n−8: Exile all graveyards. Add {R}{R}{R}.",
+        "image_uris": {
+          "small": "https://cards.scryfall.io/small/back/e/a/ea7e4c65-b4c4-4795-9475-3cba71c50ea5.jpg?1783928244",
+          "normal": "https://cards.scryfall.io/normal/back/e/a/ea7e4c65-b4c4-4795-9475-3cba71c50ea5.jpg?1783928244",
+          "large": "https://cards.scryfall.io/large/back/e/a/ea7e4c65-b4c4-4795-9475-3cba71c50ea5.jpg?1783928244",
+          "art_crop": "https://cards.scryfall.io/art_crop/back/e/a/ea7e4c65-b4c4-4795-9475-3cba71c50ea5.jpg?1783928244"
+        }
+      }
+    ],
+    "layout": "modal_dfc",
+    "scryfall_uri": "https://scryfall.com/card/khm/114/valki-god-of-lies-tibalt-cosmic-impostor"
+  },
+  "rhystic-study": {
+    "name": "Rhystic Study",
+    "mana_cost": "{2}{U}",
+    "type_line": "Enchantment",
+    "oracle_text": "Whenever an opponent casts a spell, you may draw a card unless that player pays {1}.",
+    "rarity": "rare",
+    "color_identity": [
+      "U"
+    ],
+    "keywords": [],
+    "edhrec_rank": 46,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/9/f/9f37c5b6-a59c-45cd-9a99-e9357fe9ea1b.jpg?1783919146",
+      "normal": "https://cards.scryfall.io/normal/front/9/f/9f37c5b6-a59c-45cd-9a99-e9357fe9ea1b.jpg?1783919146",
+      "large": "https://cards.scryfall.io/large/front/9/f/9f37c5b6-a59c-45cd-9a99-e9357fe9ea1b.jpg?1783919146",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/9/f/9f37c5b6-a59c-45cd-9a99-e9357fe9ea1b.jpg?1783919146"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/j22/114/rhystic-study"
+  },
+  "swords-to-plowshares": {
+    "name": "Swords to Plowshares",
+    "mana_cost": "{W}",
+    "type_line": "Instant",
+    "oracle_text": "Exile target creature. Its controller gains life equal to its power.",
+    "rarity": "uncommon",
+    "color_identity": [
+      "W"
+    ],
+    "keywords": [],
+    "edhrec_rank": 11,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/4/6/4645eebf-c9fc-4ee7-b646-61dc1205b4b0.jpg?1793111861",
+      "normal": "https://cards.scryfall.io/normal/front/4/6/4645eebf-c9fc-4ee7-b646-61dc1205b4b0.jpg?1793111861",
+      "large": "https://cards.scryfall.io/large/front/4/6/4645eebf-c9fc-4ee7-b646-61dc1205b4b0.jpg?1793111861",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/4/6/4645eebf-c9fc-4ee7-b646-61dc1205b4b0.jpg?1793111861"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/trc/429/swords-to-plowshares"
+  },
+  "cultivate": {
+    "name": "Cultivate",
+    "mana_cost": "{2}{G}",
+    "type_line": "Sorcery",
+    "oracle_text": "Search your library for up to two basic land cards, reveal those cards, put one onto the battlefield tapped and the other into your hand, then shuffle.",
+    "rarity": "uncommon",
+    "color_identity": [
+      "G"
+    ],
+    "keywords": [],
+    "edhrec_rank": 20,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/a/7/a78f5d3f-74d6-4ec1-89c4-e24639d3f4ba.jpg?1793281380",
+      "normal": "https://cards.scryfall.io/normal/front/a/7/a78f5d3f-74d6-4ec1-89c4-e24639d3f4ba.jpg?1793281380",
+      "large": "https://cards.scryfall.io/large/front/a/7/a78f5d3f-74d6-4ec1-89c4-e24639d3f4ba.jpg?1793281380",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/a/7/a78f5d3f-74d6-4ec1-89c4-e24639d3f4ba.jpg?1793281380"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/trc/460/cultivate"
+  },
+  "arcane-signet": {
+    "name": "Arcane Signet",
+    "mana_cost": "{2}",
+    "type_line": "Artifact",
+    "oracle_text": "{T}: Add one mana of any color in your commander's color identity.",
+    "rarity": "uncommon",
+    "color_identity": [],
+    "keywords": [],
+    "produced_mana": [
+      "B",
+      "G",
+      "R",
+      "U",
+      "W"
+    ],
+    "edhrec_rank": 3,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/7/9/795df2ee-fbfc-4961-852c-e3ec50cc52da.jpg?1793021117",
+      "normal": "https://cards.scryfall.io/normal/front/7/9/795df2ee-fbfc-4961-852c-e3ec50cc52da.jpg?1793021117",
+      "large": "https://cards.scryfall.io/large/front/7/9/795df2ee-fbfc-4961-852c-e3ec50cc52da.jpg?1793021117",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/7/9/795df2ee-fbfc-4961-852c-e3ec50cc52da.jpg?1793021117"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/trc/485/arcane-signet"
+  },
+  "counterspell": {
+    "name": "Counterspell",
+    "mana_cost": "{U}{U}",
+    "type_line": "Instant",
+    "oracle_text": "Counter target spell.",
+    "rarity": "uncommon",
+    "color_identity": [
+      "U"
+    ],
+    "keywords": [],
+    "edhrec_rank": 16,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/4/f/4f616706-ec97-4923-bb1e-11a69fbaa1f8.jpg?1783909630",
+      "normal": "https://cards.scryfall.io/normal/front/4/f/4f616706-ec97-4923-bb1e-11a69fbaa1f8.jpg?1783909630",
+      "large": "https://cards.scryfall.io/large/front/4/f/4f616706-ec97-4923-bb1e-11a69fbaa1f8.jpg?1783909630",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/4/f/4f616706-ec97-4923-bb1e-11a69fbaa1f8.jpg?1783909630"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/dsc/114/counterspell"
+  },
+  "smothering-tithe": {
+    "name": "Smothering Tithe",
+    "mana_cost": "{3}{W}",
+    "type_line": "Enchantment",
+    "oracle_text": "Whenever an opponent draws a card, that player may pay {2}. If the player doesn't, you create a Treasure token. (It's an artifact with \"{T}, Sacrifice this token: Add one mana of any color.\")",
+    "rarity": "mythic",
+    "color_identity": [
+      "W"
+    ],
+    "keywords": [
+      "Treasure"
+    ],
+    "produced_mana": [
+      "B",
+      "G",
+      "R",
+      "U",
+      "W"
+    ],
+    "edhrec_rank": 68,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/8/6/861b5889-0183-4bee-afeb-a4b2aa700a8e.jpg?1783915712",
+      "normal": "https://cards.scryfall.io/normal/front/8/6/861b5889-0183-4bee-afeb-a4b2aa700a8e.jpg?1783915712",
+      "large": "https://cards.scryfall.io/large/front/8/6/861b5889-0183-4bee-afeb-a4b2aa700a8e.jpg?1783915712",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/8/6/861b5889-0183-4bee-afeb-a4b2aa700a8e.jpg?1783915712"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/cmm/57/smothering-tithe"
+  },
+  "breeding-pool": {
+    "name": "Breeding Pool",
+    "mana_cost": "",
+    "type_line": "Land — Forest Island",
+    "oracle_text": "({T}: Add {G} or {U}.)\nAs this land enters, you may pay 2 life. If you don't, it enters tapped.",
+    "rarity": "rare",
+    "color_identity": [
+      "G",
+      "U"
+    ],
+    "keywords": [],
+    "produced_mana": [
+      "G",
+      "U"
+    ],
+    "edhrec_rank": 61,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/6/3/63e4dc07-c742-41bd-8301-861637908fd1.jpg?1784036820",
+      "normal": "https://cards.scryfall.io/normal/front/6/3/63e4dc07-c742-41bd-8301-861637908fd1.jpg?1784036820",
+      "large": "https://cards.scryfall.io/large/front/6/3/63e4dc07-c742-41bd-8301-861637908fd1.jpg?1784036820",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/6/3/63e4dc07-c742-41bd-8301-861637908fd1.jpg?1784036820"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/trk/279/breeding-pool"
+  },
+  "teferi-hero-of-dominaria": {
+    "name": "Teferi, Hero of Dominaria",
+    "mana_cost": "{3}{W}{U}",
+    "type_line": "Legendary Planeswalker — Teferi",
+    "oracle_text": "+1: Draw a card. At the beginning of the next end step, untap up to two lands.\n−3: Put target nonland permanent into its owner's library third from the top.\n−8: You get an emblem with \"Whenever you draw a card, exile target permanent an opponent controls.\"",
+    "rarity": "mythic",
+    "color_identity": [
+      "U",
+      "W"
+    ],
+    "keywords": [],
+    "edhrec_rank": 3775,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/5/d/5d10b752-d9cb-419d-a5c4-d4ee1acb655e.jpg?1783934963",
+      "normal": "https://cards.scryfall.io/normal/front/5/d/5d10b752-d9cb-419d-a5c4-d4ee1acb655e.jpg?1783934963",
+      "large": "https://cards.scryfall.io/large/front/5/d/5d10b752-d9cb-419d-a5c4-d4ee1acb655e.jpg?1783934963",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/5/d/5d10b752-d9cb-419d-a5c4-d4ee1acb655e.jpg?1783934963"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/dom/207/teferi-hero-of-dominaria"
+  },
+  "storm-crow": {
+    "name": "Storm Crow",
+    "mana_cost": "{1}{U}",
+    "type_line": "Creature — Bird",
+    "oracle_text": "Flying (This creature can't be blocked except by creatures with flying or reach.)",
+    "rarity": "common",
+    "color_identity": [
+      "U"
+    ],
+    "keywords": [
+      "Flying"
+    ],
+    "edhrec_rank": 21523,
+    "image_uris": {
+      "small": "https://cards.scryfall.io/small/front/0/3/036ef8c9-72ac-46ce-af07-83b79d736538.jpg?1783944028",
+      "normal": "https://cards.scryfall.io/normal/front/0/3/036ef8c9-72ac-46ce-af07-83b79d736538.jpg?1783944028",
+      "large": "https://cards.scryfall.io/large/front/0/3/036ef8c9-72ac-46ce-af07-83b79d736538.jpg?1783944028",
+      "art_crop": "https://cards.scryfall.io/art_crop/front/0/3/036ef8c9-72ac-46ce-af07-83b79d736538.jpg?1783944028"
+    },
+    "layout": "normal",
+    "scryfall_uri": "https://scryfall.com/card/9ed/100/storm-crow"
+  }
+}

@@ -1,0 +1,91 @@
+---
+title: Card Art Row
+description: A card list row with two densities. On narrow containers it becomes a thumb-sized tile with the card's art faded in behind the name.
+---
+
+<CardArtRowDemo />
+
+Switch the container width to see both densities. In the phone layout, tap a tile to open it.
+
+## Installation
+
+```npm
+npx shadcn@latest add https://suryarastogi.github.io/manaui/r/card-art-row.json
+```
+
+This also installs [Card Hover](/docs/components/card-hover), [Mana Cost](/docs/components/mana-cost)
+and [Card Badges](/docs/components/card-badges). The demo above also uses
+[Card Peek](/docs/components/card-peek) for the tap action.
+
+## Usage
+
+```tsx
+import { CardArtRow, CardArtRows } from '@/components/manaui/card-art-row';
+import { useCardPeek } from '@/components/manaui/card-peek';
+
+function Deck({ cards }: { cards: { card: Card; quantity: number }[] }) {
+  const peek = useCardPeek();
+  return (
+    <>
+      <CardArtRows>
+        {cards.map(({ card, quantity }) => (
+          <CardArtRow key={card.name} card={card} quantity={quantity} onSelect={peek.open} />
+        ))}
+      </CardArtRows>
+      {peek.dialog}
+    </>
+  );
+}
+```
+
+## Two densities, one markup
+
+The row responds to the width of the nearest container named `cards`, which `CardArtRows` (and
+[`CardGroups`](/docs/components/card-list)) set up. The breakpoint is the Tailwind `lg` container
+size, 32rem.
+
+| | Wide container | Narrow container |
+| --- | --- | --- |
+| Shape | Compact text line | Tile about a thumb tall |
+| Name | 14px, truncated | 16px, medium weight |
+| Mana cost | Right-aligned | Under the name |
+| Art | Not rendered, not fetched | Right 60%, masked to fade toward the name |
+| Interaction | Hover preview on the name | The whole tile calls `onSelect` |
+
+Because it is a container query, a deck list in a narrow side panel on a desktop gets tiles, and the
+same list full-width gets the compact rows.
+
+The art image is `loading="lazy"` and hidden on wide containers, so those layouts never request it.
+If a card has no art, or it fails to load, the tile simply has none.
+
+## Extra badges
+
+`badges` renders after the name. Interactive badges stay clickable above the tile's tap target.
+
+```tsx
+<CardArtRow
+  card={card}
+  onSelect={peek.open}
+  badges={<StapleChip edhrecRank={card.edhrec_rank} />}
+/>
+```
+
+## API reference
+
+### CardArtRow
+
+Renders an `<li>` and accepts its props.
+
+<TypeTable
+  type={{
+    card: { type: 'Card | null | undefined', description: 'A Scryfall card object. Without one the row shows only the name.', required: true },
+    name: { type: 'string', description: 'Text to show.', default: 'card.name' },
+    quantity: { type: 'number', description: 'Shown as ×N when above one.', default: '1' },
+    badges: { type: 'ReactNode', description: 'Extra inline chips after the name.' },
+    onSelect: { type: '(card: Card) => void', description: 'Narrow layout: called when the tile is tapped.' },
+  }}
+/>
+
+### CardArtRows
+
+Renders a `<ul>` that is the `cards` container, and accepts its props.

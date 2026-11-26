@@ -1,0 +1,73 @@
+---
+title: Mana Cost
+description: Mana cost and color identity symbols, rendered with the mana-font icon font.
+---
+
+<ManaCostDemo />
+
+## Installation
+
+```npm
+npx shadcn@latest add https://suryarastogi.github.io/manaui/r/mana-cost.json
+```
+
+The CLI adds `@import "mana-font/css/mana.min.css";` to your global CSS. The symbols need it.
+
+## Usage
+
+Pass a Scryfall mana cost string.
+
+```tsx
+import { ManaCost } from '@/components/manaui/mana-cost';
+
+<ManaCost cost="{2}{W}{U}" />
+<ManaCost cost={card.mana_cost} className="text-lg" />
+```
+
+Symbols scale with font size, so size them with a text utility. Hybrid (`{G/W}`), Phyrexian
+(`{B/P}`), generic, `{X}` and snow costs are all supported. Split, adventure and modal cards, whose
+cost reads `{2}{R} // {1}{R}`, render each face separated by `//`. A null or empty cost renders
+nothing.
+
+## Color identity
+
+<ColorIdentityDemo />
+
+```tsx
+import { ColorIdentity, ManaSymbol } from '@/components/manaui/mana-cost';
+
+<ColorIdentity colors={card.color_identity} />
+<ManaSymbol symbol="s" />
+```
+
+`ColorIdentity` sorts the letters into WUBRG order whatever order you pass, and shows the colorless
+pip for an empty identity. It has an accessible name such as "Color identity: White, Blue".
+
+## API reference
+
+### ManaCost
+
+<TypeTable
+  type={{
+    cost: { type: 'string | null | undefined', description: 'Scryfall mana cost string.', required: true },
+    className: { type: 'string', description: 'Size with a text utility, e.g. text-lg.' },
+  }}
+/>
+
+### ColorIdentity
+
+<TypeTable
+  type={{
+    colors: { type: 'string[] | null | undefined', description: 'WUBRG letters in any order and case.', required: true },
+    className: { type: 'string', description: 'Size with a text utility.' },
+  }}
+/>
+
+### ManaSymbol
+
+<TypeTable
+  type={{
+    symbol: { type: 'string', description: 'A mana-font suffix (w, 2, br, wp, x, s) or a Scryfall symbol ({B/R}).', required: true },
+    className: { type: 'string', description: 'Size with a text utility.' },
+  }}
+/>

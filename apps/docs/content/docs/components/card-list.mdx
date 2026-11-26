@@ -1,0 +1,124 @@
+---
+title: Card List
+description: Collapsible, grouped card rows with hover previews on desktop and a tap-to-peek popup on phones.
+---
+
+<CardListDemo />
+
+## Installation
+
+```npm
+npx shadcn@latest add https://suryarastogi.github.io/manaui/r/card-list.json
+```
+
+This installs every other manaui component, since the list wires them together.
+
+## Usage
+
+```tsx
+import { cardTypeLine, groupByKind } from '@manaui/core';
+import { CardList } from '@/components/manaui/card-list';
+
+function Deck({ entries }: { entries: { card: Card; quantity?: number }[] }) {
+  const groups = groupByKind(entries, (entry) => cardTypeLine(entry.card)).map((group) => ({
+    key: group.key,
+    label: group.label,
+    cards: group.items,
+  }));
+
+  return <CardList groups={groups} />;
+}
+```
+
+`groupByKind` sorts cards into Creatures, Planeswalkers, Instants, Sorceries, Artifacts,
+Enchantments, Battles and Lands. Grouping is yours to decide: pass any `groups` you like, by colour,
+by mana value, or by your own categories.
+
+## Behaviour
+
+- Each group header collapses its group. The count is the number of copies, not rows.
+- On narrow containers headers are taller and stick to the top of the scroll area, so the current
+  section stays named while a long group scrolls.
+- `forceOpen` shows every group without forgetting what the reader collapsed. Use it while a search
+  filter is active so matches are never hidden.
+- Rows are [Card Art Rows](/docs/components/card-art-row): hover preview on wide containers, tap to
+  [peek](/docs/components/card-peek) on narrow ones. One peek dialog is shared by the whole list.
+
+## Composing it yourself
+
+`CardList` is a thin wrapper. When you need per-row controls, selection, or your own state, use the
+pieces directly.
+
+```tsx
+import { CardArtRow } from '@/components/manaui/card-art-row';
+import { CardGroups, CardGroupSection, useCollapsedGroups } from '@/components/manaui/card-list';
+import { useCardPeek } from '@/components/manaui/card-peek';
+
+function Deck({ groups, filter }: { groups: CardListGroup[]; filter: string }) {
+  const { isOpen, toggle } = useCollapsedGroups(filter !== '');
+  const peek = useCardPeek();
+
+  return (
+    <CardGroups>
+      {groups.map((group) => (
+        <CardGroupSection
+          key={group.key}
+          label={group.label}
+          count={group.cards.length}
+          open={isOpen(group.key)}
+          onToggle={() => toggle(group.key)}
+        >
+          {group.cards.map(({ card, quantity }) => (
+            <CardArtRow key={card.name} card={card} quantity={quantity} onSelect={peek.open} />
+          ))}
+        </CardGroupSection>
+      ))}
+      {peek.dialog}
+    </CardGroups>
+  );
+}
+```
+
+## API reference
+
+### CardList
+
+<TypeTable
+  type={{
+    groups: { type: 'CardListGroup[]', description: 'Sections to render, in order.', required: true },
+    forceOpen: { type: 'boolean', description: 'Show every group regardless of collapsed state.', default: 'false' },
+    className: { type: 'string', description: 'Classes for the wrapper.' },
+  }}
+/>
+
+### CardListGroup
+
+<TypeTable
+  type={{
+    key: { type: 'string', description: 'Stable identifier, used for collapse state.', required: true },
+    label: { type: 'string', description: 'Header text.', required: true },
+    cards: { type: '{ card: Card; quantity?: number; badges?: ReactNode }[]', description: 'Rows in the group.', required: true },
+  }}
+/>
+
+### CardGroupSection
+
+Renders a `<section>` and accepts its props.
+
+<TypeTable
+  type={{
+    label: { type: 'string', description: 'Header text and the section\'s accessible name.', required: true },
+    count: { type: 'ReactNode', description: 'Shown after the label.', required: true },
+    open: { type: 'boolean', description: 'Whether the rows are shown.', required: true },
+    onToggle: { type: '() => void', description: 'Called when the header is pressed.', required: true },
+    headingTestId: { type: 'string', description: 'data-testid for the heading.' },
+  }}
+/>
+
+### useCollapsedGroups
+
+`useCollapsedGroups(forceOpen?: boolean)` returns `{ isOpen(key), toggle(key) }`.
+
+### CardGroups
+
+Renders a `<div>` that is the `cards` container, and accepts its props.
