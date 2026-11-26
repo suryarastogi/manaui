@@ -1,15 +1,19 @@
 name: Release
 
-# Changesets flow: merging a changeset opens (or updates) a "Version Packages"
-# PR; merging that PR publishes @manaui/core to npm.
+# One merge, one release. A pull request that changes @manaui/core carries a
+# changeset naming the bump (patch, minor or major). When it merges, this
+# workflow applies the changeset, commits the new version to main, publishes
+# it to npm, tags it and creates the GitHub release. A merge with no
+# changeset releases nothing.
 #
-# Publishing uses npm trusted publishing (OIDC): no NPM_TOKEN secret. Set it
-# up once at npmjs.com → @manaui/core → Settings → Trusted publisher, with
-# this repository and workflow file (release.yml). See README "Releasing".
+# Publishing uses npm trusted publishing (OIDC): no NPM_TOKEN secret. The
+# trusted publisher on npmjs.com is bound to this file name (release.yml),
+# so renaming the file breaks publishing until it is set up again there.
 on:
   push:
     branches: [main]
 
+# Releases run one at a time, in merge order.
 concurrency:
   group: release
   cancel-in-progress: false
@@ -20,14 +24,19 @@ permissions:
 jobs:
   release:
     if: github.repository == 'suryarastogi/manaui'
+    # GitHub-hosted on purpose: a public repo must not run on self-hosted runners.
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
-      contents: write
-      pull-requests: write
-      id-token: write
+      contents: write # version commit, tag and GitHub release
+      id-token: write # npm trusted publishing
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # The tip of main, not the commit that triggered the run: when two
+          # pull requests merge close together, the first run releases both
+          # changesets and the second finds nothing left to do.
+          ref: main
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
@@ -35,22 +44,49 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: npm ci
       - run: npm test -w @manaui/core
-      # npm only lets a trusted publisher be configured for a package that
-      # already exists, so the very first publish is done by hand. Until
-      # then there is nothing for this workflow to do.
-      - name: Check the package exists on npm
-        id: npm
+
+      - name: Apply changesets
         run: |
-          if npm view @manaui/core version >/dev/null 2>&1; then
-            echo "exists=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "exists=false" >> "$GITHUB_OUTPUT"
-            echo "::notice::@manaui/core is not on npm yet. Publish it once by hand (README, Releasing); this workflow takes over after that."
+          if [ -z "$(find .changeset -name '*.md' ! -name README.md -print -quit)" ]; then
+            echo "No changesets on main: nothing to version."
+            exit 0
           fi
-      - uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
-        if: steps.npm.outputs.exists == 'true'
-        with:
-          version-script: npm run version-packages
-          publish-script: npm run release
-          pr-title: Version packages
-          commit-message: 'chore: version packages'
+          npm run version-packages
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+          version=$(node -p "require('./packages/core/package.json').version")
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m "chore: release @manaui/core $version"
+          # A push made with the workflow token does not start another run.
+          git push origin HEAD:main
+
+      # Publishes only when the version in packages/core/package.json is not on
+      # npm yet, so a re-run after a failure is safe. It creates the tag
+      # locally for whatever it published.
+      - name: Publish to npm
+        id: publish
+        run: |
+          npm run release
+          tag="@manaui/core@$(node -p "require('./packages/core/package.json').version")"
+          if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          else
+            echo "Nothing was published."
+          fi
+
+      - name: Tag and GitHub release
+        if: steps.publish.outputs.tag != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.publish.outputs.tag }}
+        run: |
+          git push origin "refs/tags/$TAG"
+          version="${TAG##*@}"
+          # This version's section of the changelog, without its heading.
+          awk -v v="## $version" '
+            $0 == v { on = 1; next }
+            on && /^## / { exit }
+            on { print }
+          ' packages/core/CHANGELOG.md > "$RUNNER_TEMP/notes.md"
+          gh release create "$TAG" --title "$TAG" --notes-file "$RUNNER_TEMP/notes.md"

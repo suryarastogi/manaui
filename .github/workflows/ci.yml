@@ -19,11 +19,21 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Full history, so the changeset check can compare with the base branch.
+          fetch-depth: 0
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
           cache: npm
       - run: npm ci
+      # Merging releases straight to npm, so a pull request that changes
+      # @manaui/core has to say how to bump it. Docs-only changes pass.
+      - name: Changeset present for package changes
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: npx changeset status --since="origin/$BASE_REF"
       - name: Build @manaui/core
         run: npm run build:core
       - name: Typecheck

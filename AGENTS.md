@@ -36,3 +36,13 @@ Look at the result at 390px and 1280px. To check the install path for real, scaf
 project with `npx shadcn@latest init -t vite`, serve `apps/docs/build/client`, and
 `npx shadcn@latest add http://localhost:4173/manaui/r/<item>.json`. Until a change to
 `@manaui/core` is published, point the item's dependency at an `npm pack` tarball.
+
+## Releasing
+
+Merging to `main` releases. A pull request that changes `packages/core` must include a changeset
+(`npm run changeset`, or write `.changeset/<name>.md` by hand) with the semver bump: `patch` for a
+fix, `minor` for a new export, `major` for a breaking change. On merge the `Release` workflow
+versions, commits to `main`, publishes to npm and tags, with no second pull request. Do not bump
+`packages/core/package.json` or edit `CHANGELOG.md` yourself, and do not rename `release.yml`: npm's
+trusted publisher is bound to that file name. Changes to the docs app or the registry need no
+changeset.

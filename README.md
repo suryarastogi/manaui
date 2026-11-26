@@ -86,17 +86,24 @@ When you change a registry component, keep three things in step: the component i
 Docs and registry deploy from `main` by the `Deploy docs` workflow. Enable it once under
 Settings → Pages → Source → GitHub Actions.
 
-`@manaui/core` is versioned with [Changesets](https://github.com/changesets/changesets). Add one
-with `npm run changeset` in any pull request that changes the package. Merging the generated
-"Version packages" pull request publishes to npm through
-[trusted publishing](https://docs.npmjs.com/trusted-publishers), with no token stored in the
-repository. The first publish of a new package has to be done by hand, because npm only lets you
-configure a trusted publisher for a package that already exists:
+`@manaui/core` follows [semver](https://semver.org) and releases on merge: one pull request, one
+version. A pull request that changes the package carries a
+[changeset](https://github.com/changesets/changesets) saying how to bump it:
 
 ```bash
-npm run build:core
-npm publish -w @manaui/core --access public
+npm run changeset
 ```
+
+Pick `patch` for a fix, `minor` for a new export and `major` for a breaking change, and write the
+changelog line. CI fails a pull request that changes the package without one. When the pull request
+merges, the `Release` workflow applies the changeset, commits the new version to `main`, publishes it
+to npm, tags it and creates the GitHub release. There is no second pull request to merge. A merge
+with no changeset, such as a docs change, releases nothing.
+
+Publishing uses npm [trusted publishing](https://docs.npmjs.com/trusted-publishers), so the
+repository stores no npm token. The trusted publisher is bound to the workflow file name
+`release.yml`. The workflow pushes the version commit to `main` itself, so a branch protection rule
+that requires pull requests has to exempt GitHub Actions.
 
 ## Fan content notice
 
