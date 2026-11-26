@@ -1,6 +1,6 @@
 {
   "name": "@manaui/core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Framework-free Magic: The Gathering helpers: Scryfall card types, mana cost parsing, card art URLs and the timing logic behind manaui's card previews.",
   "license": "MIT",
   "author": "Surya Rastogi",
