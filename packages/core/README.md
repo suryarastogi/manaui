@@ -19,6 +19,8 @@ artCropUri('https://cards.scryfall.io/normal/front/a/b/abc.jpg');
 
 Full reference: https://suryarastogi.github.io/manaui/docs/core
 
+Changelog: https://github.com/suryarastogi/manaui/blob/main/packages/core/CHANGELOG.md
+
 ## License
 
 MIT. manaui is unofficial Fan Content permitted under the Wizards of the Coast Fan Content Policy.
